@@ -12,23 +12,16 @@ export default function App() {
   const onDateChange = (_e: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate
     if(!currentDate) return;
-    setIsShowPicker(false);
     setSelectedDate(currentDate);
-    if (timerId) {
-      BackgroundTimer.clearTimeout(timerId);
-    }
+    if(timerId) BackgroundTimer.clearTimeout(timerId);
     const timeDifference = currentDate.getTime() - new Date().getTime();
-    if (timeDifference > 0) {
+    if(timeDifference > 0) {
       const newTimerId = BackgroundTimer.setTimeout(() => {
         let alarmCount = 0;
         const intervalId = setInterval(() => {
           alarmCount++;
-          Tts.speak(
-            `アラーム設定時刻が来ました。時刻は${currentDate.getHours()}時${currentDate.getMinutes()}分です。`,
-          );
-          if (alarmCount >= 3) {
-            clearInterval(intervalId);
-          }
+          Tts.speak(`アラーム設定時刻が来ました。時刻は${currentDate.getHours()}時${currentDate.getMinutes()}分です。`);
+          if(alarmCount >= 3) clearInterval(intervalId);
         }, 1000);
       }, timeDifference);
       setTimerId(newTimerId);
@@ -41,11 +34,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>アラームアプリ</Text>
-      <TouchableOpacity 
-        onPress={() => {
-          setIsShowPicker(prev => !prev)
-        }}
-      >
+      <TouchableOpacity onPress={() => setIsShowPicker(prev => !prev)}>
         <Text style={styles.alarmText}>
           {selectedDate
             ? `アラーム設定時刻：${selectedDate.getHours().toString().padStart(2, '0')}:${selectedDate.getMinutes().toString().padStart(2, '0')}`
@@ -63,6 +52,7 @@ export default function App() {
             is24Hour={true}
             locale="es-ES"
             onChange={onDateChange}
+            textColor="black"
           />
         </View>
       )}

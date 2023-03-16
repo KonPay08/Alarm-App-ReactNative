@@ -13,6 +13,7 @@
     "@react-native-community/datetimepicker": "^6.7.5",
     "react": "18.2.0",
     "react-native": "^0.71.4",
+    "react-native-appearance": "^0.3.4",
     "react-native-background-timer": "^2.4.1",
     "react-native-sound": "^0.11.2",
     "react-native-tts": "^4.1.0"
